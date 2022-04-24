@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'tinymce',
     'announcements',
     'news',
-    'members',
+    'members.apps.MembersConfig',
 ]
 
 SITE_ID = 1
@@ -129,8 +129,8 @@ STATIC_URL = 'templates/static/'
 
 # Email settings
 
-EMAIL_HOST = "imap.mail.ru"
-EMAIL_PORT = 993
+EMAIL_HOST = "smtp.mail.ru"
+EMAIL_PORT = 465
 EMAIL_HOST_USER = "albertaparadise@mail.ru"
 EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 EMAIL_USE_SSL = True

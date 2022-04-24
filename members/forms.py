@@ -31,7 +31,7 @@ class RegistrationForm(UserCreationForm):
         strip=False,
         help_text="Введите пароль повторно для подтверждения",
     )
-    email = EmailField(label="Email")
+    email = EmailField(label="Email", required=True)
 
     class Meta:
         model = User

@@ -1,0 +1,12 @@
+{% extends 'default.html' %}
+
+<div class="container">
+{% block content %}
+    {% for ano in object_list %}
+    <h2>{{ ano.header }}</h2>
+        {% autoescape off %}
+        {{ ano.body }}
+        {% endautoescape %}
+    {% endfor %}
+{% endblock content %}
+</div>

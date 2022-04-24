@@ -1,0 +1,16 @@
+nav {
+    height: auto;
+    background-color: #fefcc2;
+    opacity: 60%;
+}
+
+body {
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    box-shadow: 0 -2px 7px 0;
+    background-image: url("img/body_bg.jpg");
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    font-family: Bahnschrift, ui-serif;
+}

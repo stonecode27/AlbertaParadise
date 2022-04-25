@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
 from django.contrib.auth.models import User, Group
-from django.forms import CharField, PasswordInput, EmailField, TextInput
+from django.forms import CharField, PasswordInput, EmailField, TextInput, NumberInput, Form
 
 
 class LoginForm(AuthenticationForm):
@@ -43,3 +43,8 @@ class RegistrationForm(UserCreationForm):
         help_texts = {"username": "Буквы, цифры и следующие символы @/./+/-/_."}
         field_classes = {'username': UsernameField}
 
+class VerificationForm(Form):
+    code = CharField(min_length=6, max_length=6, label='Код подтверждения:',
+                     help_text='Код подтверждения был отправлен на почту, указанную при регистрации. '
+                               'Если код не приходит - проверьте папку "спам"',
+                     widget=NumberInput)

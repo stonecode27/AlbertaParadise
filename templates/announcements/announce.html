@@ -1,0 +1,21 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <h1>{{ object.header }}</h1>
+    <h2>Автор: {{ object.author.username }}</h2>
+    <h3>Создано: {{ object.creation_date }}</h3>
+        {% autoescape off %}
+        {{ object.body }}
+        {% endautoescape %}
+   <a href="{% url 'announce_edit' object.id %}">
+            <button>
+                Редактировать
+            </button>
+        </a>
+    <a href="{% url 'announce_delete' object.id %}">
+            <button>
+                Удалить
+            </button>
+    </a>
+{% endblock content %}
+</div>

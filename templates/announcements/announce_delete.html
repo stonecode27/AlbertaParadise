@@ -1,0 +1,22 @@
+{% extends 'default.html' %}
+
+{% load cache %}
+
+{% block content %}
+    {% cache 1000 are_you_sure %}
+        <h2 align="left">Вы уверенны, что хотите удалить объявление?</h2>
+    {% endcache %}
+    <h3 align="left">
+        {{ object.header }}
+    </h3>
+    {% autoescape off %}
+        {{ object.body }}
+    {% endautoescape %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div align="left">
+            <input type="submit" value="Подтвердить">
+        </div>
+    </form>
+{% endblock content %}

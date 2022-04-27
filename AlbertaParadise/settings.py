@@ -135,6 +135,10 @@ EMAIL_HOST_USER = "albertaparadise@mail.ru"
 EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 EMAIL_USE_SSL = True
 
+# TinyMCE
+
+
+
 # Login/Logout/Registration
 
 LOGIN_REDIRECT_URL = "/announcements/"

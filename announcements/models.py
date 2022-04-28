@@ -27,8 +27,25 @@ class AnoCat(models.Model):
 
 
 class Response(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     to_announce = models.ForeignKey(Announcement, on_delete=models.CASCADE)
     body = models.TextField(max_length=254)
+    creation_date = models.DateTimeField(auto_now_add=True)
+
+    class Condition(models.IntegerChoices):
+        idle = 0
+        declined = 1
+        accepted = 2
+
+    status = models.IntegerField(choices=Condition.choices, auto_created=0, default=0)
+
+    def accept(self):
+        self.status = 2
+        self.save()
+
+    def decline(self):
+        self.status = 1
+        self.save()
 
     def __str__(self):
         return self.body[:20]

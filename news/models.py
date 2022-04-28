@@ -9,7 +9,6 @@ class News(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     text_source = models.TextField()
     html_source = tinymce_models.HTMLField()
-    send_date = models.DateTimeField()
 
     def __str__(self):
         return self.subject

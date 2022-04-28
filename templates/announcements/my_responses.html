@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <form method="get">
+        {{ filter.form.as_p }}
+        <input type="submit"/>
+    </form>
+    {% for obj in filter.qs %}
+        {% if obj.status == 0 %}
+        <h3>Отклик пользователя {{ obj.author.username }} на объявление {{ obj.to_announce.header }}</h3>
+        {{ obj.body }} <br/>
+            <a href="{% url 'accept' obj.id %}"><button>Принять</button></a>
+            <a href="{% url 'decline' obj.id %}"><button>Отклонить</button></a>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

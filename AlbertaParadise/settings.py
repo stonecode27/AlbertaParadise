@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'tinymce',
-    'announcements',
+    'announcements.apps.AnnouncementsConfig',
     'news',
     'members.apps.MembersConfig',
+    'django_filters'
 ]
 
 SITE_ID = 1

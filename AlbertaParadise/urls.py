@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('announcements/', include('announcements.urls')),
-    path('members/', include('members.urls'))
+    path('members/', include('members.urls')),
+    path('adminnews/', include('news.urls'))
 ]

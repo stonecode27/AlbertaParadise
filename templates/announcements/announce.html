@@ -7,6 +7,7 @@
         {% autoescape off %}
         {{ object.body }}
         {% endautoescape %}
+    {% if object.author == user %}
    <a href="{% url 'announce_edit' object.id %}">
             <button>
                 Редактировать
@@ -15,6 +16,12 @@
     <a href="{% url 'announce_delete' object.id %}">
             <button>
                 Удалить
+            </button>
+    </a>
+    {% endif %}
+    <a href="{% url 'response' object.id %}">
+            <button>
+                Отклик
             </button>
     </a>
 {% endblock content %}

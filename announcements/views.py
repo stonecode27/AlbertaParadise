@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .filters import ResponseFilter
 from .models import Announcement, Response
 from .forms import AnnouncementForm
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class AnnouncementsView(ListView):
@@ -12,16 +13,20 @@ class AnnouncementsView(ListView):
     template_name = "announcements/announcements.html"
 
 
-class AnnounceView(DetailView):
+class AnnounceView(DetailView, PermissionRequiredMixin):
     model = Announcement
     template_name = "announcements/announce.html"
     context_object_name = "announce"
+    permission_required = ['announcements.add_announcement', 'announcements.change_announcement', 'announcements.delete_announcement',
+                           'announcements.view_announcement', 'announcements.add_response', 'announcements.view_responses']
 
 
-class AnnounceAddView(CreateView):
+class AnnounceAddView(CreateView, PermissionRequiredMixin):
     model = Announcement
     template_name = 'announcements/announce_create.html'
     form_class = AnnouncementForm
+    permission_required = ['add_announcement', 'change_announcement', 'delete_announcement',
+                           'view_announcement', 'add_response', 'view_responses']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -31,25 +36,31 @@ class AnnounceAddView(CreateView):
         return reverse('announce', kwargs={'pk': self.object.id})
 
 
-class AnnounceEditView(UpdateView):
+class AnnounceEditView(UpdateView, PermissionRequiredMixin):
     model = Announcement
     template_name = 'announcements/announce_edit.html'
     form_class = AnnouncementForm
+    permission_required = ['add_announcement', 'change_announcement', 'delete_announcement',
+                           'view_announcement', 'add_response', 'view_responses']
 
     def get_success_url(self):
         return reverse('announce', kwargs={'pk': self.object.id})
 
 
-class AnnounceDeleteView(DeleteView):
+class AnnounceDeleteView(DeleteView, PermissionRequiredMixin):
     model = Announcement
     template_name = 'announcements/announce_delete.html'
     success_url = reverse_lazy('announcements')
+    permission_required = ['add_announcement', 'change_announcement', 'delete_announcement',
+                           'view_announcement', 'add_response', 'view_responses']
 
 
-class ResponseAddView(CreateView):
+class ResponseAddView(CreateView, PermissionRequiredMixin):
     model = Response
     template_name = 'announcements/response_create.html'
     fields = ['body']
+    permission_required = ['add_announcement', 'change_announcement', 'delete_announcement',
+                           'view_announcement', 'add_response', 'view_responses']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -60,9 +71,11 @@ class ResponseAddView(CreateView):
         return reverse('announcements')
 
 
-class MyResponsesView(ListView):
+class MyResponsesView(ListView, PermissionRequiredMixin):
     model = Response
     template_name = 'announcements/my_responses.html'
+    permission_required = ['add_announcement', 'change_announcement', 'delete_announcement',
+                           'view_announcement', 'add_response', 'view_responses']
 
     def get_queryset(self):
         return Response.objects.filter(to_announce__author=self.request.user)

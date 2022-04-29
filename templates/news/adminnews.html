@@ -1,0 +1,11 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <h1>Последние отправленные новости</h1>
+    {% for post in object_list %}
+    <h2>{{ post.subject }}</h2>
+        {% autoescape off %}
+        {{ post.html_source }}
+        {% endautoescape %}
+    {% endfor %}
+{% endblock content %}

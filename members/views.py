@@ -1,12 +1,10 @@
-import requests
 from django.contrib.auth.models import User, Group
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, FormView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from .forms import RegistrationForm, VerificationForm
 from .models import OneTimeCode
-from random import randint
 
 
 class SignUpView(CreateView):
@@ -18,10 +16,11 @@ class SignUpView(CreateView):
         return reverse('verify', kwargs={'user_id': self.object.id})
 
 
-class VerifyView(FormView):
+class VerifyView(FormView, PermissionRequiredMixin):
     form_class = VerificationForm
     template_name = 'members/verify.html'
     success_url = reverse_lazy('announcements')
+    permission_required = ['members.view_announcements', 'members.add_onetimecode', 'members.view_onetimecode']
 
     def post(self, request, *args, **kwargs):
         provided_code = request.POST['code']
@@ -29,6 +28,8 @@ class VerifyView(FormView):
         actual_code = OneTimeCode.objects.get(user=user).code
         if provided_code == actual_code:
             OneTimeCode.objects.get(user=user).delete()
+            registered_group = Group.objects.get(name='Registered')
+            registered_group.user_set.remove(user)
             verified_group = Group.objects.get(name='Verified')
             if not request.user.groups.filter(name='Verified').exists():
                 verified_group.user_set.add(user)
@@ -36,7 +37,3 @@ class VerifyView(FormView):
             return HttpResponseRedirect(self.success_url)
         else:
             return self.render_to_response(context={'invalid_code': True})
-
-
-
-

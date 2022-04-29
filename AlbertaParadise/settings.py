@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
     'announcements.apps.AnnouncementsConfig',
-    'news',
+    'news.apps.NewsConfig',
     'members.apps.MembersConfig',
     'django_filters'
 ]

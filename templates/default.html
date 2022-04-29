@@ -11,6 +11,9 @@
 </head>
 
 <body>
+{% if user.is_authenticated %}
+<h2> Добро пожаловать, {{ user.username }}</h2>
+{% endif %}
 <nav id="navbar">
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">

@@ -5,10 +5,10 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .filters import ResponseFilter
 from .models import Announcement, Response
 from .forms import AnnouncementForm
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 
-class AnnouncementsView(ListView):
+class AnnouncementsView(ListView, LoginRequiredMixin):
     model = Announcement
     template_name = "announcements/announcements.html"
 

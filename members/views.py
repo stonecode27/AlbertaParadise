@@ -20,7 +20,7 @@ class VerifyView(FormView, PermissionRequiredMixin):
     form_class = VerificationForm
     template_name = 'members/verify.html'
     success_url = reverse_lazy('announcements')
-    permission_required = ['members.view_announcements', 'members.add_onetimecode', 'members.view_onetimecode']
+    permission_required = ('members.view_announcements', 'members.add_onetimecode', 'members.view_onetimecode')
 
     def post(self, request, *args, **kwargs):
         provided_code = request.POST['code']

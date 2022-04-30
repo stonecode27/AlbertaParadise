@@ -16,6 +16,5 @@ def send_news(sender, instance, created, **kwwargs):
         html_content = instance.html_source
         msg = EmailMultiAlternatives(subject, text_content, "albertaparadise@mail.ru",
                                      User.objects.all().values_list('email', flat=True))
-        # Commented for tests to not to spam
         msg.send()
 

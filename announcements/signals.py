@@ -13,9 +13,7 @@ def response_notification(sender, instance, created, **kwwargs):
         text_content = f'Здравствуйте, {user.username}. На ваше объявление {instance.to_announce.header} появился отклик!'
         msg = EmailMultiAlternatives(subject, text_content, "albertaparadise@mail.ru", [user.email])
 
-        # Commented for tests to not to spam
-
-        # msg.send()
+        msg.send()
 
 @receiver(post_save, sender=Response)
 def accept_notification(sender, instance, created, **kwargs):
@@ -25,6 +23,4 @@ def accept_notification(sender, instance, created, **kwargs):
         text_content = f'Здравствуйте, {user.username}. ваш отклик на объявление "{instance.to_announce.header[:20]}" принят! Скорее свяжитесь с {instance.to_announce.author.username}. '
         msg = EmailMultiAlternatives(subject, text_content, "albertaparadise@mail.ru", [user.email])
 
-        # Commented for tests to not to spam
-
-        # msg.send()
+        msg.send()

@@ -20,6 +20,11 @@
             <a class="nav-item" href="{% url 'announcements' %}">Объявления</a>
             {% if user|has_group:"Verified" %}
                 <a class="nav-item" href="{% url 'announce_add' %}">Добавить объявление</a>
+                <a class="nav-item" href="{% url 'my_responses' %}">Отклики на объявления</a>
+            {% endif %}
+            {% if user|has_group:"Administrators" %}
+                <a class="nav-item" style="color: red" href="{% url 'recent_news' %}">Последние рассылки</a>
+                <a class="nav-item" style="color: red" href="{% url 'create_news' %}">Создать рассылку</a>
             {% endif %}
             {% if user.is_authenticated %}
                 <a class="nav-item" href="{% url 'logout' %}">Выход</a>
